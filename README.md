@@ -36,7 +36,7 @@ _We'll see what status code to chose_
 
 - Hash key of length 8 is used - means that we should be able to generate 62^8 number of hash values for the URLs.
 - Hash Collision + Resolution will be used this time but Base 62 implementation looks abit better here, why?
-- Generate a hash value - check if it exists in DB, if it does generate another one - recursively check until no match is found, then store this alongside the long URL.
+- Generate a hash value - check if it exists in DB, if it does generate another one - recursively check until no match is found, then store this alongside the long URL. Process Becomes quite expensive over time plus I'm planning on using MongoDB for my database so I can't use the unique IDs provided By MongoDB to generate a Base 62.
 - Base 62 would have no issue with hash collisions since the IDs generated will always Be unique in the DB -> generate unique ID -> get it's Base 62 (this Becomes the short URL) -> store the unique ID in the DB alongside short URL + long URL
 
 ## Process Flow
