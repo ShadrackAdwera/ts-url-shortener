@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: url
-          image: adwera/ts-url 
+          image: adwera/ts-url-shortener
           env:
             - name: MONGO_URI
               value: 'mongodb://url-mongo-service:27017/urls'

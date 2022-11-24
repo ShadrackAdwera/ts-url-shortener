@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-url-redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ts-url-redis
+  template:
+    metadata:
+      labels:
+        app: ts-url-redis
+    spec:
+      containers:
+        - name: ts-url-redis
+          image: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-url-redis-service
+spec:
+  selector:
+    app: ts-url-redis
+  ports:
+    - name: redis
+      protocol: TCP
+      port: 6379
+      targetPort: 6379

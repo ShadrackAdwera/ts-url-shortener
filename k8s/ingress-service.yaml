@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ts-url-ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: ts-url.io
+      http:
+        paths:
+          - path: /api/shortener/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: url-service
+                port:
+                  number: 5000
