@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: url-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: url
+  template:
+    metadata:
+      labels:
+        app: url
+    spec:
+      containers:
+        - name: url
+          image: adwera/ts-url 
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://url-mongo-service:27017/urls'
+            - name: REDIS_HOST
+              value: 'ts-url-redis-service'
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: url-service
+spec:
+  selector:
+    app: url
+  ports:
+    - name: url
+      protocol: TCP
+      port: 5000
+      targetPort: 5000
