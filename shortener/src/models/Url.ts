@@ -1,4 +1,5 @@
 import { Document, Model, model, Schema } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface UrlDoc extends Document {
   longUrl: string;
@@ -18,6 +19,9 @@ const urlSchema = new Schema(
   },
   { timestamps: true, toJSON: { getters: true } }
 );
+
+urlSchema.set('versionKey', 'version');
+urlSchema.plugin(updateIfCurrentPlugin);
 
 const Url = model<UrlDoc, UrlModel>('url', urlSchema);
 
