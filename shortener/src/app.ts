@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api/minified-url', urlRouter);
+app.use('/minified-url', urlRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   return next(new HttpError('This method / route does not exist', 404));
