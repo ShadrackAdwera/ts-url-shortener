@@ -20,3 +20,5 @@ app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
     .status(error.code || 500)
     .json({ message: error.message || 'An error occured try again' });
 });
+
+export { app };
