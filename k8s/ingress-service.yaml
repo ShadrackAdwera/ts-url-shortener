@@ -7,10 +7,10 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    - host: ts-url.io
+    - host: ts-minified.io
       http:
         paths:
-          - path: /api/shortener/?(.*)
+          - path: /minified-url/?(.*)
             pathType: Prefix
             backend:
               service:
