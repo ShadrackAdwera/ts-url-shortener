@@ -1,4 +1,4 @@
-import { sha } from './sha';
+import { sha } from '../sha';
 
 describe('sha function', () => {
   it('return 7 characters for the hash value', () => {
