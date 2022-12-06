@@ -5,7 +5,6 @@ let mongo: MongoMemoryServer;
 
 jest.setTimeout(3000000);
 beforeAll(async () => {
-  process.env.JWT_KEY = '=6:$}/N7Hp21HrX[bCiI`xj49xi,_';
   mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
 
