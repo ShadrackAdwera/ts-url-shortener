@@ -3,19 +3,19 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 export interface UrlDoc extends Document {
   longUrl: string;
-  shortUrl: string;
+  hashKey: string;
   version: number;
 }
 
 interface UrlModel extends Model<UrlDoc> {
   longUrl: string;
-  shortUrl: string;
+  hashKey: string;
 }
 
 const urlSchema = new Schema(
   {
     longUrl: { type: String, required: true },
-    shortUrl: { type: String, required: true },
+    hashKey: { type: String, required: true },
   },
   { timestamps: true, toJSON: { getters: true } }
 );
