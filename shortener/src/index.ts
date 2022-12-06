@@ -7,7 +7,7 @@ if (!process.env.MONGO_URI) {
 
 const startUp = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL!);
+    await mongoose.connect(process.env.MONGO_URI!);
     app.listen(5000);
     console.log('Listening on PORT: 5000');
   } catch (error) {

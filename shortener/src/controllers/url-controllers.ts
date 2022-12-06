@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator';
 import { Url, UrlDoc } from '../models/Url';
 import { sha } from '../utils/sha';
 
-export const hostUrl = 'http://ts-minified.io';
+export const hostUrl = 'http://ts-minified.io/minified-url';
 
 const getUrls = async (req: Request, res: Response, next: NextFunction) => {
   let urls: (UrlDoc & { _id: string })[];
