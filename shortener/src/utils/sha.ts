@@ -1,3 +1,4 @@
-import { sha512 } from 'sha.js';
+import { createHash } from 'crypto';
+
 export const sha = (url: string) =>
-  new sha512().update(url).digest('hex').split('').slice(0, 7).join('');
+  createHash('sha1').update(url).digest('hex').split('').slice(0, 7).join('');
