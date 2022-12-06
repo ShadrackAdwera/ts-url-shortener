@@ -4,6 +4,8 @@ import { validationResult } from 'express-validator';
 import { Url, UrlDoc } from '../models/Url';
 import { sha } from '../utils/sha';
 
+export const hostUrl = 'http://ts-minified.io';
+
 const getUrls = async (req: Request, res: Response, next: NextFunction) => {
   let urls: (UrlDoc & { _id: string })[];
   try {
@@ -26,7 +28,10 @@ const createUrl = async (req: Request, res: Response, next: NextFunction) => {
 
   const shortened = sha(url);
 
-  const newUrl = new Url({ longUrl: url, shortUrl: shortened });
+  const newUrl = new Url({
+    longUrl: url,
+    hashKey: shortened,
+  });
 
   try {
     await newUrl.save();
@@ -38,15 +43,30 @@ const createUrl = async (req: Request, res: Response, next: NextFunction) => {
       )
     );
   }
-  res
-    .status(201)
-    .json({
-      message: 'URL Created',
-      shortUrl: newUrl.shortUrl,
-      longUrl: newUrl.longUrl,
-    });
+  res.status(201).json({
+    message: 'URL Created',
+    shortUrl: `${hostUrl}/${newUrl.hashKey}`,
+    longUrl: newUrl.longUrl,
+  });
 };
 
-const pingUrl = async () => {};
+const pingUrl = async (req: Request, res: Response, next: NextFunction) => {
+  const params = req.params.hash;
+  let foundUrl: (UrlDoc & { _id: string }) | null;
+
+  try {
+    foundUrl = await Url.findOne({ hashKey: params });
+  } catch (error) {
+    console.log(error);
+    return next(
+      new HttpError(
+        error instanceof Error ? error.message : 'An error occured',
+        500
+      )
+    );
+  }
+  if (!foundUrl) return next(new HttpError('The URL was not found', 404));
+  res.redirect(301, foundUrl.longUrl);
+};
 
 export { getUrls, createUrl, pingUrl };
